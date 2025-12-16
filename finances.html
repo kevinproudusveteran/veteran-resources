@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Finances</title><style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; color: #333; background: #f9f9f9; }
+    
+    /* Crisis Banner */
+    .crisis-banner { background-color: #8b0000; color: white; text-align: center; padding: 10px; font-weight: bold; font-size: 0.95rem; }
+    .crisis-banner a { color: #fff; text-decoration: underline; }
+    
+    /* Header */
+    header { 
+        background: #003366; 
+        color: #fff; 
+        padding: 1rem 2rem; 
+        display: flex; 
+        align-items: center; 
+        justify-content: space-between; 
+        position: relative; 
+        min-height: 80px; 
+        flex-wrap: nowrap; 
+        gap: 20px; 
+    }
+    .logo img { height: 60px; background: white; padding: 5px; border-radius: 5px; display: block; flex-shrink: 0; order: 1; }
+    
+    /* Tagline - Centered */
+    .tagline { 
+        font-weight: 900; 
+        font-style: normal; 
+        font-size: 1.8rem; 
+        text-transform: uppercase; 
+        letter-spacing: 1px; 
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+        white-space: nowrap; 
+        margin: 0 auto; /* Centered on desktop */
+        text-align: center; 
+        color: #FFD700; /* Gold */
+        flex-grow: 1; 
+        order: 2;
+    }
+    
+    .header-right { 
+        display: flex; 
+        align-items: center; 
+        gap: 15px; 
+        flex-shrink: 0; 
+        order: 3;
+    }
+    .search-wrapper { text-align: center; }
+    .search-box input { padding: 6px; border-radius: 4px; border: none; font-size: 0.9rem; }
+    .search-box button { padding: 6px 12px; background: #cc0000; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+    .search-subtext { font-size: 0.7rem; font-style: italic; color: #e0e0e0; margin-top: 3px; display: block; }
+
+    /* Mobile Menu */
+    .hamburger { 
+        display: none; 
+        cursor: pointer; 
+        z-index: 1001; 
+        position: absolute; 
+        right: 20px; 
+        top: 35px;
+    }
+    .bar { display: block; width: 25px; height: 3px; margin: 5px auto; transition: all 0.3s ease-in-out; background-color: white; }
+    .nav-menu { display: flex; gap: 15px; flex-wrap: wrap; }
+    .nav-menu a { color: white; text-decoration: none; font-size: 0.95rem; transition: color 0.3s; white-space: nowrap; }
+    .nav-menu a:hover { color: #cc0000; text-decoration: underline; }
+
+    /* Responsive Logic */
+    @media (max-width: 1300px) { 
+        header { flex-wrap: wrap; }
+        .header-right { margin-right: 40px; margin-left: auto; }
+        .hamburger { display: block; } 
+        
+        .nav-menu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #002244; flex-direction: column; text-align: center; z-index: 1000; border-top: 1px solid #446688; box-shadow: 0 4px 6px rgba(0,0,0,0.2); padding: 0; }
+        .nav-menu.active { display: flex; }
+        .nav-menu a { padding: 15px; border-bottom: 1px solid #003366; width: 100%; box-sizing: border-box; }
+        .nav-menu a:hover { background: #cc0000; color: white; }
+        
+        @media (max-width: 768px) { 
+            /* On small screens, stack content and hide search for space */
+            .header-right { display: none; }
+            .tagline { font-size: 1.2rem; width: 100%; margin: 10px 0 0 0; order: 2; }
+            .logo { order: 1; }
+            .hamburger { top: 25px; } /* Adjust position relative to header */
+        }
+    }
+
+    /* Content */
+    .hero { background: #333; color: white; padding: 80px 20px; text-align: center; }
+    .container { max-width: 1100px; margin: auto; padding: 40px 20px; }
+    .btn { display: inline-block; padding: 12px 25px; border-radius: 5px; font-weight: bold; margin: 5px; text-decoration: none; color: white; cursor: pointer; text-align: center; }
+    .btn-red { background: #cc0000; } .btn-red:hover { background: #990000; }
+    .btn-blue { background: #003366; } .btn-blue:hover { background: #002244; }
+    .btn-white { background: white; color: #003366; border: 1px solid #ccc; } .btn-white:hover { background: #eee; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+    .card { background: white; padding: 25px; border-radius: 8px; border-top: 5px solid #003366; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .card h3 { color: #003366; margin-top: 0; }
+    .alert-box { background: #fff3cd; color: #856404; padding: 20px; border-radius: 8px; border-left: 5px solid #ffc107; margin-bottom: 20px; }
+    .info-box { background: #e6f7ff; border-left: 5px solid #005ea2; padding: 20px; margin-bottom: 20px; border-radius: 5px; }
+
+    /* PROFILE AVATAR */
+    .profile-avatar { 
+        width: 150px; height: 150px; background: #003366; color: white; 
+        border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+        font-size: 4rem; font-weight: bold; margin: 0 auto 20px auto; border: 5px solid #cc0000; 
+    }
+
+    /* Footer */
+    footer { background: #333; color: #fff; padding: 40px 20px 20px; margin-top: 50px; border-top: 5px solid #003366; }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; text-align: left; max-width: 1100px; margin: auto; }
+    footer h4 { color: #fff; border-bottom: 1px solid #555; padding-bottom: 10px; margin-bottom: 15px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+    footer a { color: #ccc; text-decoration: none; transition: color 0.3s; }
+    footer a:hover { color: #fff; text-decoration: underline; }
+    footer p { margin: 5px 0; font-size: 0.9rem; }
+    .footer-link-list a { display: block; margin-bottom: 8px; }
+    .copyright { text-align: center; margin-top: 40px; border-top: 1px solid #444; padding-top: 20px; font-size: 0.8rem; color: #777; }
+</style></head><body>
+<div class="crisis-banner">&#9888; IMMEDIATE CRISIS SUPPORT: Dial <a href="tel:988">988 then Press 1</a></div>
+<header>
+    <div class="logo"><a href="index.html"><img src="proudusveteran.png" alt="Logo"></a></div>
+    <div class="tagline">NEVER GIVE UP!</div>
+    <div class="header-right">
+        <div class="search-wrapper">
+            <form action="https://www.google.com/search" method="GET" target="_blank" class="search-box">
+                <input type="text" name="q" placeholder="Search..." required>
+                <input type="hidden" name="as_sitesearch" value="va.gov">
+                <button type="submit">GO</button>
+            </form>
+            <span class="search-subtext">(google search of va.gov)</span>
+        </div>
+    </div>
+    <div class="hamburger" onclick="document.getElementById('navMenu').classList.toggle('active')">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+</div>
+<nav class="nav-menu" id="navMenu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="benefits.html">Benefits</a>
+    <a href="disability.html">Disability Comp</a>
+    <a href="c-and-p.html">C&P Exams</a>
+    <a href="smc.html">SMC Guide</a>
+    <a href="finances.html">Finances</a>
+    <a href="vso.html">Find a VSO</a>
+    <a href="messaging.html">Secure Messaging</a>
+    <a href="news.html">News</a>
+    <a href="resources.html">Resources</a>
+    <a href="numbers.html">Key Numbers</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+</nav>
+</header>
+<div class="container">
+    <h1>Veteran Financial Resources</h1>
+    <div class="info-box">
+        <h3>Veterans Benefits Banking Program (VBBP)</h3>
+        <p>Access safe, reliable banking services designed for veterans.</p>
+        <a href="https://veteransbenefitsbanking.org/find-bank-credit-union/" target="_blank" class="btn btn-blue">Find a VBBP Bank &rarr;</a>
+    </div>
+    
+    <div class="card" style="margin-top:30px; border-top: 5px solid #28a745;">
+        <h2 style="color: #28a745;">&#128184; The Key to Generational Wealth: S&P 500 (VOO)</h2>
+        <p>Long-term investing in broad market funds is one of the most reliable paths to financial security and wealth building.</p>
+        <div style="margin-bottom:15px;">
+            <a href="https://investor.vanguard.com/how-to-invest-on-your-own" target="_blank" class="btn btn-blue">Vanguard Investing Guide &rarr;</a>
+            <a href="https://www.youtube.com/watch?v=gvZSpET11ZY" target="_blank" class="btn btn-white">Video: The Easiest Way to Build Wealth</a>
+        </div>
+        
+        <hr>
+        
+        <h3>The Three Simple Rules</h3>
+        <ol style="padding-left: 20px;">
+            <li>
+                <p><strong>Start Now: Your Money Makes More Money</strong></p>
+                <p style="font-size:0.95rem;">This is "compound interest" in a nutshell. When your investments earn money (returns), those earnings then start earning their own money. The longer you leave your money invested, the faster it grows, like a snowball rolling downhill. Starting early, even with small amounts, gives your money the most time to snowball.</p>
+            </li>
+            <li>
+                <p><strong>Keep it Simple: "Set It and Forget It"</strong></p>
+                <p style="font-size:0.95rem;">Don't try to guess when the market will go up or down. Instead, buy a low-cost S&P 500 index fund or ETF and hold it for many years, even decades. This way, you own a piece of 500 major companies at once, so you're not relying on just one or two. This approach prevents emotional decisions, like panic-selling when the market drops, and generally outperforms complicated trading strategies over time.</p>
+            </li>
+            <li>
+                <p><strong>Invest Regularly: The Habit Wins</strong></p>
+                <p style="font-size:0.95rem;">Make a habit of adding money to your investment account on a regular schedule (e.g., every paycheck), regardless of whether prices are high or low. This strategy is called "dollar-cost averaging" and it helps you buy more shares when they are cheap and fewer when they are expensive, potentially lowering your overall average cost. Consistency is more important than timing the market.</p>
+            </li>
+        </ol>
+    </div>
+    
+    <div class="grid">
+        <div class="card"><h3>&#127974; USAA</h3><a href="https://www.usaa.com/" target="_blank" class="btn btn-blue">Visit USAA</a></div>
+        <div class="card"><h3>&#9875; Navy Federal</h3><a href="https://www.navyfederal.org/" target="_blank" class="btn btn-blue">Visit Navy Federal</a></div>
+        <div class="card"><h3>&#127974; Pentagon Federal</h3><a href="https://www.penfed.org/" target="_blank" class="btn btn-blue">Visit PenFed</a></div>
+        
+        <div class="card">
+            <h3>&#127974; Chase</h3>
+            <p><strong>Premier Plus Checking:</strong> Waived  Monthly Service Fee for military members & veterans.</p>
+            <a href="https://www.chase.com/digital/military/personal" target="_blank" class="btn btn-blue">View Benefits &rarr;</a>
+        </div>
+
+        <div class="card">
+            <h3>&#127974; Openbank.us</h3>
+            <p><strong>High Yield Savings Account:</strong> Earn high interest (e.g., 4.2% APY, rate variable) with no fees.</p>
+            <a href="https://www.openbank.us/banking/high-yield-savings-account" target="_blank" class="btn btn-blue">Open Savings &rarr;</a>
+        </div>
+    </div>
+    <div class="card" style="margin-top:30px; border-top: 5px solid #cc0000;">
+        <h2 style="color: #cc0000;">Warren Buffett's 5/25 Rule</h2>
+        <ol>
+            <li>Write down your top 25 goals.</li>
+            <li>Circle your top 5 highest priorities.</li>
+            <li>Dedicate yourself ONLY to those 5.</li>
+            <li>Treat the other 20 as a <strong>"Never-Do List"</strong> until the top 5 are done.</li>
+        </ol>
+    </div>
+</div>
+<footer>
+    <div class="footer-grid">
+        <div>
+            <h4>&#128222; Important Numbers</h4>
+            <p><strong>Crisis Line:</strong> <a href="tel:988" style="color:#ff6666; font-weight:bold;">988 then Press 1</a></p>
+            <p><strong>MyVA411:</strong> <a href="tel:18006982411">1-800-698-2411</a></p>
+            <p><strong>White House VA Hotline:</strong> <a href="tel:18559482311">1-855-948-2311</a></p>
+            <p><strong>VA Benefits:</strong> <a href="tel:18008271000">1-800-827-1000</a></p>
+            <p><strong>GI Bill:</strong> <a href="tel:18884424551">1-888-442-4551</a></p>
+            <p style="margin-top:15px;"><strong>Email Us:</strong><br> <a href="mailto:kevinproudusveteran@gmail.com">kevinproudusveteran@gmail.com</a></p>
+        </div>
+        <div class="footer-link-list">
+            <h4>&#129517; Main Menu</h4>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="benefits.html">Benefits Overview</a>
+            <a href="disability.html">Disability Compensation</a>
+            <a href="smc.html">SMC Guide</a>
+            <a href="finances.html">Financial Resources</a>
+        </div>
+        <div class="footer-link-list">
+            <h4>&#128279; Tools & Resources</h4>
+            <a href="https://www.veteransbenefitskb.com/" target="_blank">Veterans Benefits Knowledge Base (KB)</a>
+            <a href="https://dvagov-btsss.dynamics365portals.us/" target="_blank">VA Travel Reimbursement</a>
+            <a href="vso.html">Find a VSO</a>
+            <a href="messaging.html">Secure Messaging Guide</a>
+            <a href="resources.html">Resource Hub</a>
+            <a href="news.html">Veteran News</a>
+            <a href="gallery.html">Service Gallery</a>
+            <a href="contact.html">Contact Page</a>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>&copy; 2025 Proud US Veteran. All Rights Reserved.</p>
+        <p>Built by a Veteran, for Veterans. Never Give Up.</p>
+    </div>
+</footer>
+</body>
+</html>

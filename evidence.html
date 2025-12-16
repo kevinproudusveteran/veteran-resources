@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Gathering Evidence</title><style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; color: #333; background: #f9f9f9; }
+    
+    /* Crisis Banner */
+    .crisis-banner { background-color: #8b0000; color: white; text-align: center; padding: 10px; font-weight: bold; font-size: 0.95rem; }
+    .crisis-banner a { color: #fff; text-decoration: underline; }
+    
+    /* Header */
+    header { 
+        background: #003366; 
+        color: #fff; 
+        padding: 1rem 2rem; 
+        display: flex; 
+        align-items: center; 
+        justify-content: space-between; 
+        position: relative; 
+        min-height: 80px; 
+        flex-wrap: nowrap; 
+        gap: 20px; 
+    }
+    .logo img { height: 60px; background: white; padding: 5px; border-radius: 5px; display: block; flex-shrink: 0; order: 1; }
+    
+    /* Tagline - Centered */
+    .tagline { 
+        font-weight: 900; 
+        font-style: normal; 
+        font-size: 1.8rem; 
+        text-transform: uppercase; 
+        letter-spacing: 1px; 
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+        white-space: nowrap; 
+        margin: 0 auto; /* Centered on desktop */
+        text-align: center; 
+        color: #FFD700; /* Gold */
+        flex-grow: 1; 
+        order: 2;
+    }
+    
+    .header-right { 
+        display: flex; 
+        align-items: center; 
+        gap: 15px; 
+        flex-shrink: 0; 
+        order: 3;
+    }
+    .search-wrapper { text-align: center; }
+    .search-box input { padding: 6px; border-radius: 4px; border: none; font-size: 0.9rem; }
+    .search-box button { padding: 6px 12px; background: #cc0000; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+    .search-subtext { font-size: 0.7rem; font-style: italic; color: #e0e0e0; margin-top: 3px; display: block; }
+
+    /* Mobile Menu */
+    .hamburger { 
+        display: none; 
+        cursor: pointer; 
+        z-index: 1001; 
+        position: absolute; 
+        right: 20px; 
+        top: 35px;
+    }
+    .bar { display: block; width: 25px; height: 3px; margin: 5px auto; transition: all 0.3s ease-in-out; background-color: white; }
+    .nav-menu { display: flex; gap: 15px; flex-wrap: wrap; }
+    .nav-menu a { color: white; text-decoration: none; font-size: 0.95rem; transition: color 0.3s; white-space: nowrap; }
+    .nav-menu a:hover { color: #cc0000; text-decoration: underline; }
+
+    /* Responsive Logic */
+    @media (max-width: 1300px) { 
+        header { flex-wrap: wrap; }
+        .header-right { margin-right: 40px; margin-left: auto; }
+        .hamburger { display: block; } 
+        
+        .nav-menu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #002244; flex-direction: column; text-align: center; z-index: 1000; border-top: 1px solid #446688; box-shadow: 0 4px 6px rgba(0,0,0,0.2); padding: 0; }
+        .nav-menu.active { display: flex; }
+        .nav-menu a { padding: 15px; border-bottom: 1px solid #003366; width: 100%; box-sizing: border-box; }
+        .nav-menu a:hover { background: #cc0000; color: white; }
+        
+        @media (max-width: 768px) { 
+            /* On small screens, stack content and hide search for space */
+            .header-right { display: none; }
+            .tagline { font-size: 1.2rem; width: 100%; margin: 10px 0 0 0; order: 2; }
+            .logo { order: 1; }
+            .hamburger { top: 25px; } /* Adjust position relative to header */
+        }
+    }
+
+    /* Content */
+    .hero { background: #333; color: white; padding: 80px 20px; text-align: center; }
+    .container { max-width: 1100px; margin: auto; padding: 40px 20px; }
+    .btn { display: inline-block; padding: 12px 25px; border-radius: 5px; font-weight: bold; margin: 5px; text-decoration: none; color: white; cursor: pointer; text-align: center; }
+    .btn-red { background: #cc0000; } .btn-red:hover { background: #990000; }
+    .btn-blue { background: #003366; } .btn-blue:hover { background: #002244; }
+    .btn-white { background: white; color: #003366; border: 1px solid #ccc; } .btn-white:hover { background: #eee; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+    .card { background: white; padding: 25px; border-radius: 8px; border-top: 5px solid #003366; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .card h3 { color: #003366; margin-top: 0; }
+    .alert-box { background: #fff3cd; color: #856404; padding: 20px; border-radius: 8px; border-left: 5px solid #ffc107; margin-bottom: 20px; }
+    .info-box { background: #e6f7ff; border-left: 5px solid #005ea2; padding: 20px; margin-bottom: 20px; border-radius: 5px; }
+
+    /* PROFILE AVATAR */
+    .profile-avatar { 
+        width: 150px; height: 150px; background: #003366; color: white; 
+        border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+        font-size: 4rem; font-weight: bold; margin: 0 auto 20px auto; border: 5px solid #cc0000; 
+    }
+
+    /* Footer */
+    footer { background: #333; color: #fff; padding: 40px 20px 20px; margin-top: 50px; border-top: 5px solid #003366; }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; text-align: left; max-width: 1100px; margin: auto; }
+    footer h4 { color: #fff; border-bottom: 1px solid #555; padding-bottom: 10px; margin-bottom: 15px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+    footer a { color: #ccc; text-decoration: none; transition: color 0.3s; }
+    footer a:hover { color: #fff; text-decoration: underline; }
+    footer p { margin: 5px 0; font-size: 0.9rem; }
+    .footer-link-list a { display: block; margin-bottom: 8px; }
+    .copyright { text-align: center; margin-top: 40px; border-top: 1px solid #444; padding-top: 20px; font-size: 0.8rem; color: #777; }
+</style></head><body>
+<div class="crisis-banner">&#9888; IMMEDIATE CRISIS SUPPORT: Dial <a href="tel:988">988 then Press 1</a></div>
+<header>
+    <div class="logo"><a href="index.html"><img src="proudusveteran.png" alt="Logo"></a></div>
+    <div class="tagline">NEVER GIVE UP!</div>
+    <div class="header-right">
+        <div class="search-wrapper">
+            <form action="https://www.google.com/search" method="GET" target="_blank" class="search-box">
+                <input type="text" name="q" placeholder="Search..." required>
+                <input type="hidden" name="as_sitesearch" value="va.gov">
+                <button type="submit">GO</button>
+            </form>
+            <span class="search-subtext">(google search of va.gov)</span>
+        </div>
+    </div>
+    <div class="hamburger" onclick="document.getElementById('navMenu').classList.toggle('active')">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+</div>
+<nav class="nav-menu" id="navMenu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="benefits.html">Benefits</a>
+    <a href="disability.html">Disability Comp</a>
+    <a href="c-and-p.html">C&P Exams</a>
+    <a href="smc.html">SMC Guide</a>
+    <a href="finances.html">Finances</a>
+    <a href="vso.html">Find a VSO</a>
+    <a href="messaging.html">Secure Messaging</a>
+    <a href="news.html">News</a>
+    <a href="resources.html">Resources</a>
+    <a href="numbers.html">Key Numbers</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+</nav>
+</header>
+<div class="container">
+    <h1>Gathering Evidence</h1>
+    
+    <div class="card">
+        <p>Gathering evidence for a VA disability claim involves collecting specific <strong>military, medical, and lay records</strong> to prove that you have a current condition that is linked to your service. The VA has a "duty to assist" you, but providing as much comprehensive documentation as possible can speed up the process.</p>
+        
+        <h2 style="color:#003366; margin-top:30px;">Medical Evidence Logs (Symptom Logs)</h2>
+        <div style="background:#eef; padding:20px; border-radius:5px; margin-bottom:20px;">
+            <p><strong>"Medical evidence logs"</strong> are detailed records or diaries of your symptoms. They are a powerful tool because the VA considers veterans to be reliable reporters of their own symptoms.</p>
+            <p>For conditions where symptoms fluctuate (like migraines, chronic pain, or PTSD), consistent logging provides a clear picture of severity, frequency, and duration over time.</p>
+            
+            <h4 style="margin-top:15px;">Effective symptom logs should detail:</h4>
+            <ul style="list-style-type: disc; padding-left: 20px;">
+                <li><strong>Date & Time</strong> the symptom occurs.</li>
+                <li><strong>Symptom(s)</strong> experienced (e.g., headache, panic attack).</li>
+                <li><strong>Severity</strong> (e.g., scale of 1-10, or mild/moderate/severe).</li>
+                <li><strong>Duration</strong> of the episode.</li>
+                <li><strong>Impact</strong> on daily life (e.g., missed work, bed rest, medication).</li>
+            </ul>
+        </div>
+
+        <h2 style="color:#003366; margin-top:30px;">Types of Medical Evidence for a VA Claim</h2>
+        <p>The VA requires evidence to establish three things: a <strong>current diagnosis</strong>, an <strong>in-service event</strong>, and a <strong>medical link (nexus)</strong> between the two.</p>
+        
+        <div style="background:#f4f4f4; padding:20px; border-left:5px solid #003366; margin:20px 0;">
+            <h3>Service Medical Records (SMRs)</h3>
+            <p>These records detail where you served, when you served, and any incidents or injuries that occurred during active duty. You can obtain these by submitting a <strong>Standard Form 180 (SF-180)</strong> to the National Archives.</p>
+        </div>
+
+        <div style="background:#f4f4f4; padding:20px; border-left:5px solid #003366; margin:20px 0;">
+            <h3>VA Medical Records</h3>
+            <p>If you receive care from the VA, these records show the continuity and progression of your condition post-service. You can access these online via your <a href="https://www.myhealth.va.gov/" target="_blank" style="color:#003366; font-weight:bold;">My HealtheVet</a> premium account.</p>
+        </div>
+
+        <div style="background:#f4f4f4; padding:20px; border-left:5px solid #003366; margin:20px 0;">
+            <h3>Private Medical Records</h3>
+            <p>Documentation from non-VA healthcare providers is critical. You can submit these yourself or use <strong><a href="https://www.va.gov/find-forms/about-form-21-4142/" target="_blank" style="color:#003366;">VA Form 21-4142</a></strong> to authorize the VA to gather them on your behalf.</p>
+        </div>
+
+        <div style="background:#f4f4f4; padding:20px; border-left:5px solid #003366; margin:20px 0;">
+            <h3>Lay Evidence</h3>
+            <p>These include statements from family, friends, or fellow service members (Buddy Statements) who have firsthand knowledge of your condition. Use these official forms:</p>
+            <ul style="margin-top:10px;">
+                <li style="margin-bottom:10px;"><a href="https://www.va.gov/find-forms/about-form-21-10210/" target="_blank" style="color:#003366; font-weight:bold;">VA Form 21-10210 (Lay/Witness Statement)</a></li>
+                <li><a href="https://www.va.gov/find-forms/about-form-21-4138/" target="_blank" style="color:#003366; font-weight:bold;">VA Form 21-4138 (Statement in Support of Claim)</a></li>
+            </ul>
+        </div>
+
+        <div style="background:#f4f4f4; padding:20px; border-left:5px solid #003366; margin:20px 0;">
+            <h3>Disability Benefits Questionnaires (DBQs)</h3>
+            <p>DBQs help collect necessary medical information to process your disability claims. You can use these forms to submit medical evidence from your health care providers. This information helps to support your claims for disability benefits.</p>
+            <p>Please have your health care provider fill out and submit the appropriate forms for your claimed conditions.</p>
+            <p style="font-size:0.9rem; color:#555; font-style:italic;"><strong>Note:</strong> The VA does not pay or reimburse any expenses or costs incurred while completing and/or submitting DBQs.</p>
+            <a href="https://www.benefits.va.gov/compensation/dbq_publicdbqs.asp" target="_blank" class="btn btn-blue" style="margin-top:10px;">Find DBQ Forms &rarr;</a>
+        </div>
+    </div>
+    <br><a href="resources.html" class="btn btn-white">&larr; Back to Resources</a>
+</div>
+<footer>
+    <div class="footer-grid">
+        <div>
+            <h4>&#128222; Important Numbers</h4>
+            <p><strong>Crisis Line:</strong> <a href="tel:988" style="color:#ff6666; font-weight:bold;">988 then Press 1</a></p>
+            <p><strong>MyVA411:</strong> <a href="tel:18006982411">1-800-698-2411</a></p>
+            <p><strong>White House VA Hotline:</strong> <a href="tel:18559482311">1-855-948-2311</a></p>
+            <p><strong>VA Benefits:</strong> <a href="tel:18008271000">1-800-827-1000</a></p>
+            <p><strong>GI Bill:</strong> <a href="tel:18884424551">1-888-442-4551</a></p>
+            <p style="margin-top:15px;"><strong>Email Us:</strong><br> <a href="mailto:kevinproudusveteran@gmail.com">kevinproudusveteran@gmail.com</a></p>
+        </div>
+        <div class="footer-link-list">
+            <h4>&#129517; Main Menu</h4>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="benefits.html">Benefits Overview</a>
+            <a href="disability.html">Disability Compensation</a>
+            <a href="smc.html">SMC Guide</a>
+            <a href="finances.html">Financial Resources</a>
+        </div>
+        <div class="footer-link-list">
+            <h4>&#128279; Tools & Resources</h4>
+            <a href="https://www.veteransbenefitskb.com/" target="_blank">Veterans Benefits Knowledge Base (KB)</a>
+            <a href="https://dvagov-btsss.dynamics365portals.us/" target="_blank">VA Travel Reimbursement</a>
+            <a href="vso.html">Find a VSO</a>
+            <a href="messaging.html">Secure Messaging Guide</a>
+            <a href="resources.html">Resource Hub</a>
+            <a href="news.html">Veteran News</a>
+            <a href="gallery.html">Service Gallery</a>
+            <a href="contact.html">Contact Page</a>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>&copy; 2025 Proud US Veteran. All Rights Reserved.</p>
+        <p>Built by a Veteran, for Veterans. Never Give Up.</p>
+    </div>
+</footer>
+</body>
+</html>
