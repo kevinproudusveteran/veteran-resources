@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SMC Guide</title><style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; color: #333; background: #f9f9f9; }
+    
+    /* Crisis Banner */
+    .crisis-banner { background-color: #8b0000; color: white; text-align: center; padding: 10px; font-weight: bold; font-size: 0.95rem; }
+    .crisis-banner a { color: #fff; text-decoration: underline; }
+    
+    /* Header */
+    header { 
+        background: #003366; 
+        color: #fff; 
+        padding: 1rem 2rem; 
+        display: flex; 
+        align-items: center; 
+        justify-content: space-between; 
+        position: relative; 
+        min-height: 80px; 
+        flex-wrap: nowrap; 
+        gap: 20px; 
+    }
+    .logo img { height: 60px; background: white; padding: 5px; border-radius: 5px; display: block; flex-shrink: 0; order: 1; }
+    
+    /* Tagline - Centered */
+    .tagline { 
+        font-weight: 900; 
+        font-style: normal; 
+        font-size: 1.8rem; 
+        text-transform: uppercase; 
+        letter-spacing: 1px; 
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+        white-space: nowrap; 
+        margin: 0 auto; /* Centered on desktop */
+        text-align: center; 
+        color: #FFD700; /* Gold */
+        flex-grow: 1; 
+        order: 2;
+    }
+    
+    .header-right { 
+        display: flex; 
+        align-items: center; 
+        gap: 15px; 
+        flex-shrink: 0; 
+        order: 3;
+    }
+    .search-wrapper { text-align: center; }
+    .search-box input { padding: 6px; border-radius: 4px; border: none; font-size: 0.9rem; }
+    .search-box button { padding: 6px 12px; background: #cc0000; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+    .search-subtext { font-size: 0.7rem; font-style: italic; color: #e0e0e0; margin-top: 3px; display: block; }
+
+    /* Mobile Menu */
+    .hamburger { 
+        display: none; 
+        cursor: pointer; 
+        z-index: 1001; 
+        position: absolute; 
+        right: 20px; 
+        top: 35px;
+    }
+    .bar { display: block; width: 25px; height: 3px; margin: 5px auto; transition: all 0.3s ease-in-out; background-color: white; }
+    .nav-menu { display: flex; gap: 15px; flex-wrap: wrap; }
+    .nav-menu a { color: white; text-decoration: none; font-size: 0.95rem; transition: color 0.3s; white-space: nowrap; }
+    .nav-menu a:hover { color: #cc0000; text-decoration: underline; }
+
+    /* Responsive Logic */
+    @media (max-width: 1300px) { 
+        header { flex-wrap: wrap; }
+        .header-right { margin-right: 40px; margin-left: auto; }
+        .hamburger { display: block; } 
+        
+        .nav-menu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #002244; flex-direction: column; text-align: center; z-index: 1000; border-top: 1px solid #446688; box-shadow: 0 4px 6px rgba(0,0,0,0.2); padding: 0; }
+        .nav-menu.active { display: flex; }
+        .nav-menu a { padding: 15px; border-bottom: 1px solid #003366; width: 100%; box-sizing: border-box; }
+        .nav-menu a:hover { background: #cc0000; color: white; }
+        
+        @media (max-width: 768px) { 
+            /* On small screens, stack content and hide search for space */
+            .header-right { display: none; }
+            .tagline { font-size: 1.2rem; width: 100%; margin: 10px 0 0 0; order: 2; }
+            .logo { order: 1; }
+            .hamburger { top: 25px; } /* Adjust position relative to header */
+        }
+    }
+
+    /* Content */
+    .hero { background: #333; color: white; padding: 80px 20px; text-align: center; }
+    .container { max-width: 1100px; margin: auto; padding: 40px 20px; }
+    .btn { display: inline-block; padding: 12px 25px; border-radius: 5px; font-weight: bold; margin: 5px; text-decoration: none; color: white; cursor: pointer; text-align: center; }
+    .btn-red { background: #cc0000; } .btn-red:hover { background: #990000; }
+    .btn-blue { background: #003366; } .btn-blue:hover { background: #002244; }
+    .btn-white { background: white; color: #003366; border: 1px solid #ccc; } .btn-white:hover { background: #eee; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+    .card { background: white; padding: 25px; border-radius: 8px; border-top: 5px solid #003366; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .card h3 { color: #003366; margin-top: 0; }
+    .alert-box { background: #fff3cd; color: #856404; padding: 20px; border-radius: 8px; border-left: 5px solid #ffc107; margin-bottom: 20px; }
+    .info-box { background: #e6f7ff; border-left: 5px solid #005ea2; padding: 20px; margin-bottom: 20px; border-radius: 5px; }
+
+    /* PROFILE AVATAR */
+    .profile-avatar { 
+        width: 150px; height: 150px; background: #003366; color: white; 
+        border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+        font-size: 4rem; font-weight: bold; margin: 0 auto 20px auto; border: 5px solid #cc0000; 
+    }
+
+    /* Footer */
+    footer { background: #333; color: #fff; padding: 40px 20px 20px; margin-top: 50px; border-top: 5px solid #003366; }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; text-align: left; max-width: 1100px; margin: auto; }
+    footer h4 { color: #fff; border-bottom: 1px solid #555; padding-bottom: 10px; margin-bottom: 15px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+    footer a { color: #ccc; text-decoration: none; transition: color 0.3s; }
+    footer a:hover { color: #fff; text-decoration: underline; }
+    footer p { margin: 5px 0; font-size: 0.9rem; }
+    .footer-link-list a { display: block; margin-bottom: 8px; }
+    .copyright { text-align: center; margin-top: 40px; border-top: 1px solid #444; padding-top: 20px; font-size: 0.8rem; color: #777; }
+</style></head><body>
+<div class="crisis-banner">&#9888; IMMEDIATE CRISIS SUPPORT: Dial <a href="tel:988">988 then Press 1</a></div>
+<header>
+    <div class="logo"><a href="index.html"><img src="proudusveteran.png" alt="Logo"></a></div>
+    <div class="tagline">NEVER GIVE UP!</div>
+    <div class="header-right">
+        <div class="search-wrapper">
+            <form action="https://www.google.com/search" method="GET" target="_blank" class="search-box">
+                <input type="text" name="q" placeholder="Search..." required>
+                <input type="hidden" name="as_sitesearch" value="va.gov">
+                <button type="submit">GO</button>
+            </form>
+            <span class="search-subtext">(google search of va.gov)</span>
+        </div>
+    </div>
+    <div class="hamburger" onclick="document.getElementById('navMenu').classList.toggle('active')">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+</div>
+<nav class="nav-menu" id="navMenu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="benefits.html">Benefits</a>
+    <a href="disability.html">Disability Comp</a>
+    <a href="c-and-p.html">C&P Exams</a>
+    <a href="smc.html">SMC Guide</a>
+    <a href="finances.html">Finances</a>
+    <a href="vso.html">Find a VSO</a>
+    <a href="messaging.html">Secure Messaging</a>
+    <a href="news.html">News</a>
+    <a href="resources.html">Resources</a>
+    <a href="numbers.html">Key Numbers</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+</nav>
+</header>
+<div class="container">
+    <h1>Special Monthly Compensation (SMC)</h1>
+    <div class="alert-box">
+        <h3>&#128176; Current SMC Rates</h3>
+        <p>SMC rates are paid <strong>in addition to</strong> or <strong>instead of</strong> standard ratings depending on the code.</p>
+        <a href="https://www.va.gov/disability/compensation-rates/special-monthly-compensation-rates/" target="_blank" class="btn btn-blue">View 2025 SMC Rates Table &rarr;</a>
+    </div>
+    <div class="card">
+        <h2>What is SMC?</h2>
+        <p>SMC (Special Monthly Compensation) is a tax-free benefit for veterans with severe service-connected disabilities, offering higher payments than standard disability for needs like limb loss, blindness, or needing daily help (Aid & Attendance) for basic care.</p>
+        <hr>
+        <h3>Key Aspects</h3>
+        <ul>
+            <li><strong>Tax-Free:</strong> Unlike regular disability pay, SMC is not taxed.</li>
+            <li><strong>Higher Rates:</strong> Paid at a higher rate than standard 100% disability.</li>
+            <li><strong>Eligibility:</strong> For specific severe disabilities including loss of limbs, eyes, deafness, blindness, or being permanently housebound.</li>
+            <li><strong>SMC-K:</strong> For loss/loss of use of specific body parts (e.g., one hand, one foot).</li>
+            <li><strong>SMC-S (Housebound):</strong> For veterans with 100% disability who are housebound, or have a 100% rating plus another 60% rating.</li>
+            <li><strong>SMC-R:</strong> For veterans needing daily help with basic life functions from another person.</li>
+        </ul>
+    </div>
+    <br><a href="benefits.html" style="color:#003366;">&larr; Back to Benefits</a>
+</div>
+<footer>
+    <div class="footer-grid">
+        <div>
+            <h4>&#128222; Important Numbers</h4>
+            <p><strong>Crisis Line:</strong> <a href="tel:988" style="color:#ff6666; font-weight:bold;">988 then Press 1</a></p>
+            <p><strong>MyVA411:</strong> <a href="tel:18006982411">1-800-698-2411</a></p>
+            <p><strong>White House VA Hotline:</strong> <a href="tel:18559482311">1-855-948-2311</a></p>
+            <p><strong>VA Benefits:</strong> <a href="tel:18008271000">1-800-827-1000</a></p>
+            <p><strong>GI Bill:</strong> <a href="tel:18884424551">1-888-442-4551</a></p>
+            <p style="margin-top:15px;"><strong>Email Us:</strong><br> <a href="mailto:kevinproudusveteran@gmail.com">kevinproudusveteran@gmail.com</a></p>
+        </div>
+        <div class="footer-link-list">
+            <h4>&#129517; Main Menu</h4>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="benefits.html">Benefits Overview</a>
+            <a href="disability.html">Disability Compensation</a>
+            <a href="smc.html">SMC Guide</a>
+            <a href="finances.html">Financial Resources</a>
+        </div>
+        <div class="footer-link-list">
+            <h4>&#128279; Tools & Resources</h4>
+            <a href="https://www.veteransbenefitskb.com/" target="_blank">Veterans Benefits Knowledge Base (KB)</a>
+            <a href="https://dvagov-btsss.dynamics365portals.us/" target="_blank">VA Travel Reimbursement</a>
+            <a href="vso.html">Find a VSO</a>
+            <a href="messaging.html">Secure Messaging Guide</a>
+            <a href="resources.html">Resource Hub</a>
+            <a href="news.html">Veteran News</a>
+            <a href="gallery.html">Service Gallery</a>
+            <a href="contact.html">Contact Page</a>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>&copy; 2025 Proud US Veteran. All Rights Reserved.</p>
+        <p>Built by a Veteran, for Veterans. Never Give Up.</p>
+    </div>
+</footer>
+</body>
+</html>
